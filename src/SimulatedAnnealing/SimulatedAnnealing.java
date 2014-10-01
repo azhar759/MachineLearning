@@ -58,6 +58,10 @@ public class SimulatedAnnealing {
 		int tabuCount = 0;
 		temperature = 100;
 
+		// Biased locations, distance 1
+		// B A I D N G E H M K O J L: 1 0 8 3 13 6 4 7 12 10 14 9 11
+		// Biased locations, distance 2
+		// C B F D K H G: 2, 1, 5, 3, 10, 7, 6
 		List<Integer> listOfLocations = new ArrayList<Integer>();
 		int temp = random.nextInt(noOfLocations);
 		for (int i = 0; i < pathOfLocations.length; i++) {
@@ -67,6 +71,11 @@ public class SimulatedAnnealing {
 			pathOfLocations[i] = temp;
 		}
 
+		int[] biasedLocations = new int[] {1, 0, 8, 3, 13, 6, 4, 7, 12, 10, 14, 9, 11};
+		for (int i = 0; i < biasedLocations.length; i++) {
+			pathOfLocations[i] = biasedLocations[i];
+		}
+		
 		for (int j = 0; j < noOfLocations - 1; j++) {
 			distance += getDistance(pathOfLocations[j], pathOfLocations[j + 1]);
 		}
