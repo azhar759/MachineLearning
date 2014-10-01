@@ -62,6 +62,7 @@ public class SimulatedAnnealing {
 		// B A I D N G E H M K O J L: 1 0 8 3 13 6 4 7 12 10 14 9 11
 		// Biased locations, distance 2
 		// C B F D K H G: 2, 1, 5, 3, 10, 7, 6
+		
 		List<Integer> listOfLocations = new ArrayList<Integer>();
 		int temp = random.nextInt(noOfLocations);
 		for (int i = 0; i < pathOfLocations.length; i++) {
@@ -101,25 +102,27 @@ public class SimulatedAnnealing {
 				distance = newDistance;
 				tabuCount = 0;
 				solutions.add(new Solution(distance, pathOfLocations.clone()));
-			} else if (newDistance * (1 + acceptanceMargin) < distance) {
+			} 
+			else if (newDistance < (1 + acceptanceMargin) * distance)
+			{
 				distance = newDistance;
 				tabuCount++;
 				solutions.add(new Solution(distance, pathOfLocations.clone()));
-				if (tabuCount >= maxTabuCount) {
+				if (tabuCount >= maxTabuCount) 
+				{
 					while (tabuCount > 0) {
 						solutions.remove(solutions.size() - 1);
 						temperature *= 1 + coolingRate;
 						tabuCount--;
 					}
 					distance = solutions.get(solutions.size() - 1).distance;
-					pathOfLocations = solutions.get(solutions.size() - 1).paths
-							.clone();
+					pathOfLocations = solutions.get(solutions.size() - 1).paths.clone();
 				}
 			}
 		}
-		for (Solution solution : solutions) {
+		for (Solution solution : solutions)
 			System.out.println(solution);
-		}
+		
 		return solutions.get(solutions.size() - 1);
 	}
 
